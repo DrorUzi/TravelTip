@@ -50,7 +50,7 @@ document.querySelector('.search-btn').addEventListener('click', (ev) => {
         })
 })
 
-document.querySelector('.copy-btn').addEventListener('click', () => {
+document.querySelector('.copy').addEventListener('click', () => {
     copyToClipboard()
 })
 
@@ -68,10 +68,12 @@ function renderWeather(lat, Lng) {
         .then(res => {
             let elContainer = document.querySelector('.weather');
             let strHtml =
-                `<h3>Wehater is: ${res.description}</h3>
-                <h4>clouds: ${res.clouds}</h4>
-                <h4>Temp: ${res.temp}</h4>
-                <img src="http://openweathermap.org/img/wn/${res.icon}@2x.png">`;
+                `<h1 class="weather-head">WEATHER<img src="http://openweathermap.org/img/wn/${res.icon}@2x.png"></h1>
+                <div class="desc">
+                <h2>${res.description}</h2>
+                <h2>${res.temp}&#8451;</h2>
+                </div>
+                `;
             elContainer.innerHTML = strHtml
         })
 }
