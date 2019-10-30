@@ -25,7 +25,7 @@ window.onload = () => {
         // .catch(err => {
         //     console.log('err!!!', err);
         // })
-        weatherService.getWeather()
+        // weatherService.getWeather()
         renderWeather()
             
 }
@@ -56,7 +56,9 @@ document.querySelector('.search-btn').addEventListener('click', (ev) => {
 })
 
 function renderGeocodeData(geocodeData) {
-    document.querySelector('.adress').innerText = geocodeData.adress
+    let elContainer = document.querySelector('.loc-header');
+    let strHtml = `Locaition: <span class="adress">${geocodeData.adress}</span>`;
+    elContainer.innerHTML = strHtml
     mapService.setMapCenter(geocodeData.latLng)
     mapService.setMapZoom(13)
 }
