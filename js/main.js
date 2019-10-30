@@ -48,6 +48,7 @@ function renderGeocodeData(geocodeData) {
     mapService.setMapZoom(13)
 }
 
+// TODO design to the weather section  
 function renderWeather(lat, Lng) {
     weatherService.getWeather(lat, Lng)
         .then(res => {
@@ -69,6 +70,7 @@ function renderRejectMsg(msg) {
     }, 5000);
 }
 
+// TODO COPY 
 function copyToClipboard(){
 
     // http://127.0.0.1:5500/

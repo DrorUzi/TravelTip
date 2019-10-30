@@ -51,6 +51,8 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+
+// TODO change glastloc 
 function setMapCenter(latLng){
     map.setCenter(latLng)
 }
