@@ -4,10 +4,6 @@ import mapService from './services/map.service.js'
 import weatherService from './services/weather.service.js'
 
 
-locService.getLocs()
-    .then(locs => console.log('locs', locs))
-
-
 
 window.onload = () => {
     mapService.initMap()
