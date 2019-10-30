@@ -5,10 +5,6 @@ import weatherService from './services/weather.service.js'
 
 var gLastLoc;
 
-locService.getLocs()
-    .then(locs => console.log('locs', locs))
-
-
 
 window.onload = () => {
     mapService.initMap()
