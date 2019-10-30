@@ -32,6 +32,9 @@ function getGeocodeData(adress) {
         let locLatLng = relevantData.geometry.location
         return { adress: locAdress, latLng: locLatLng }
     })
+    .catch(()=>{ // need to handle reject - render msg
+        ('Location Not Found')
+    })
 
     return geocodeData
 
