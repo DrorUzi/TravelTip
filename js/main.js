@@ -4,9 +4,20 @@ import mapService from './services/map.service.js'
 import weatherService from './services/weather.service.js'
 
 window.onload = () => {
-    mapService.initMap()
+    if(checkUrlParams()){
+        let latLng =checkUrlParams()
+        mapService.initMap(latLng.lat,latLng.lng)
+        .then(()=>{
+            mapService.setMapZoom(14)
+            mapService.addMarker(latLng)
+        })
         .catch(() => {
-            renderRejectMsg('INIT MAP ERROR')
+            renderRejectMsg('Init map error!')
+        });
+    }
+    else mapService.initMap()
+        .catch(() => {
+            renderRejectMsg('Init map error!')
         });
 
 }
@@ -17,7 +28,6 @@ document.querySelector('.my-loc-btn').addEventListener('click', () => {
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             renderWeather(pos.coords.latitude, pos.coords.longitude)
             document.querySelector('.adress').innerText = 'Your current location'
-            copyToClipboard()
         })
         .catch(() => {
             renderRejectMsg('Error getting current position!')
@@ -32,10 +42,16 @@ document.querySelector('.search-btn').addEventListener('click', (ev) => {
             renderGeocodeData(geocodeData)
             renderWeather(geocodeData.latLng.lat, geocodeData.latLng.lng)
             elSearchInput.value = ''
+            let latLng = { lat: geocodeData.latLng.lat, lng: geocodeData.latLng.lng }
+            mapService.updategLastLoc(latLng)
         })
         .catch(() => {
             renderRejectMsg('Error getting geocode data!')
         })
+})
+
+document.querySelector('.copy-btn').addEventListener('click', () => {
+    copyToClipboard()
 })
 
 function renderGeocodeData(geocodeData) {
@@ -64,15 +80,33 @@ function renderRejectMsg(msg) {
     var locHeader = document.querySelector('.loc-header')
     locHeader.innerHTML = msg
     setTimeout(() => {
-        locHeader.innerHTML = ''
+        locHeader.innerHTML = '<h3 class="loc-header">Locaition: <span class="adress"></span></h3>'
     }, 5000);
 }
 
-// TODO COPY 
 function copyToClipboard() {
-    let lastLoc = mapService.gLastLoc
-    console.log(lastLoc);
-    
-    // http://127.0.0.1:5500/
-    // https://droruzi.github.io/TravelTip/
+    let currLoc = mapService.getgLastLoc()
+    if (!currLoc) {
+        renderRejectMsg('No location to copy!')
+        return
+    }
+    let currLocUrl =  `https://droruzi.github.io/TravelTip?lat=${currLoc.lat}&lng=${currLoc.lng}`
+    let elTextArea = document.createElement('textarea');
+    document.body.appendChild(elTextArea);
+    elTextArea.value = currLocUrl
+    elTextArea.select();
+    elTextArea.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.body.removeChild(elTextArea);
+}
+
+function checkUrlParams() {
+    let urlCheck = new URLSearchParams(window.location.search);
+    let latParam = urlCheck.get('lat');
+    let lngParam = urlCheck.get('lng');
+    if (latParam && lngParam) {
+        let latLng = { lat: +latParam, lng: +lngParam }
+        return latLng
+    }
+    return false
 }
