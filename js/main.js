@@ -3,9 +3,6 @@ import locService from './services/loc.service.js'
 import mapService from './services/map.service.js'
 import weatherService from './services/weather.service.js'
 
-var gLastLoc;
-
-
 window.onload = () => {
     mapService.initMap()
         .catch(() => {
@@ -20,6 +17,7 @@ document.querySelector('.my-loc-btn').addEventListener('click', () => {
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             renderWeather(pos.coords.latitude, pos.coords.longitude)
             document.querySelector('.adress').innerText = 'Your current location'
+            copyToClipboard()
         })
         .catch(() => {
             renderRejectMsg('Error getting current position!')
@@ -71,8 +69,10 @@ function renderRejectMsg(msg) {
 }
 
 // TODO COPY 
-function copyToClipboard(){
-
+function copyToClipboard() {
+    let lastLoc = mapService.gLastLoc
+    console.log(lastLoc);
+    
     // http://127.0.0.1:5500/
     // https://droruzi.github.io/TravelTip/
 }

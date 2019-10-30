@@ -1,14 +1,16 @@
 'use strict';
+let gLastLoc;
 
 export default {
     initMap,
     addMarker,
     panTo,
     setMapCenter,
-    setMapZoom
+    setMapZoom,
+    gLastLoc
 }
 
-var map;
+let map;
 
 export function initMap(lat =35.6895, lng = 139.6917) {
     return _connectGoogleApi()
@@ -18,7 +20,6 @@ export function initMap(lat =35.6895, lng = 139.6917) {
                 center: { lat, lng },
                 zoom: 10
             })
-        console.log('Map!', map);
     })
 }
 
@@ -35,7 +36,7 @@ function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng( lat,  lng);
     map.panTo(laLatLng);
     map.setZoom(15);
-    addMarker(laLatLng)
+    addMarker(laLatLng)    
 }
 
 function _connectGoogleApi() {
