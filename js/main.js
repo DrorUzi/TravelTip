@@ -3,6 +3,7 @@ import locService from './services/loc.service.js'
 import mapService from './services/map.service.js'
 import weatherService from './services/weather.service.js'
 
+var gLastLoc;
 
 locService.getLocs()
     .then(locs => console.log('locs', locs))
@@ -11,21 +12,9 @@ locService.getLocs()
 
 window.onload = () => {
     mapService.initMap()
-        // .then(() => {
-        //     mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
-        // })
-        .catch(renderRejectMsg('INIT MAP ERROR'));
-
-
-    // locService.getPosition()
-    //     .then(pos => {
-    //         console.log('User position is:', pos.coords);
-
-    //     })
-    // .catch(err => {
-    //     console.log('err!!!', err);
-    // })
-
+        .catch(() => {
+            renderRejectMsg('INIT MAP ERROR')
+        });
 
 }
 
@@ -36,7 +25,9 @@ document.querySelector('.my-loc-btn').addEventListener('click', () => {
             renderWeather(pos.coords.latitude, pos.coords.longitude)
             document.querySelector('.adress').innerText = 'Your current location'
         })
-        .catch(renderRejectMsg('Error getting current position!'))
+        .catch(() => {
+            renderRejectMsg('Error getting current position!')
+        })
 })
 
 document.querySelector('.search-btn').addEventListener('click', (ev) => {
@@ -48,7 +39,9 @@ document.querySelector('.search-btn').addEventListener('click', (ev) => {
             renderWeather(geocodeData.latLng.lat, geocodeData.latLng.lng)
             elSearchInput.value = ''
         })
-        .catch(renderRejectMsg('Error getting geocode data!'))
+        .catch(() => {
+            renderRejectMsg('Error getting geocode data!')
+        })
 })
 
 function renderGeocodeData(geocodeData) {
@@ -58,7 +51,6 @@ function renderGeocodeData(geocodeData) {
     mapService.setMapCenter(geocodeData.latLng)
     mapService.setMapZoom(13)
 }
-
 
 function renderWeather(lat, Lng) {
     weatherService.getWeather(lat, Lng)
@@ -73,6 +65,16 @@ function renderWeather(lat, Lng) {
         })
 }
 
-function renderRejectMsg(msg){
-    document.querySelector('.loc-header').innerHTML = msg
+function renderRejectMsg(msg) {
+    var locHeader = document.querySelector('.loc-header')
+    locHeader.innerHTML = msg
+    setTimeout(() => {
+        locHeader.innerHTML = ''
+    }, 5000);
+}
+
+function copyToClipboard(){
+
+    // http://127.0.0.1:5500/
+    // https://droruzi.github.io/TravelTip/
 }
