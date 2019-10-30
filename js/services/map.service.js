@@ -1,3 +1,4 @@
+'use strict';
 
 export default {
     initMap,
@@ -5,19 +6,15 @@ export default {
     panTo
 }
 
-
 var map;
 
-
-export function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap'); 
+export function initMap(lat =35.6895, lng = 139.6917) {
     return _connectGoogleApi()
     .then(() => {
-        console.log('google available');
         map = new google.maps.Map(
             document.querySelector('#map'), {
                 center: { lat, lng },
-                zoom: 15
+                zoom: 10
             })
         console.log('Map!', map);
     })
@@ -35,6 +32,8 @@ function addMarker(loc) {
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng( lat,  lng);
     map.panTo(laLatLng);
+    map.setZoom(15);
+    addMarker(laLatLng)
 }
 
 function _connectGoogleApi() {
