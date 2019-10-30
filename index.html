@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ES6</title>
+    <title>TravelTip</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
-    <h1>ES6</h1>
-    <div id="map" style="width: 100%; height: 400px;"></div>
-    <button class="btn">Click Me</button>
-    
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">TravelTip</a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">GO</button>
+            </form>
+        </nav>
+    </header>
+    <main>
+        <section class="loc-info">
+            <h3>Locaition:<span>ddd</span></h3>
+            <button class="btn btn-outline-secondary">Copy Location<img class="copy-img"src="img/copy.png"></button>
+        </section>
+        <section class="main-container">
+            <div class="weather"></div>
+            <div class="map-container">
+                <div id="map"></div>
+                <button class="my-loc-btn"><img src="img/my-location.png" alt=""></button>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2019 </p>
+    </footer>
+
+    <script src="lib/axios.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

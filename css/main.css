@@ -1,0 +1,91 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    height: 79%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: #e3f2fd!important;
+    padding: 20px;
+}
+
+.main-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.copy-img {
+    width: 12%;
+    margin-left: 15px;
+    ;
+}
+
+.loc-info{
+    padding-bottom: 20px;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+/**map**/
+
+.map-container {
+    height: 90%;
+    width: 57%;
+    position: relative;
+    border: 1px solid black;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.my-loc-btn{
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    border-radius: 2px;
+    border-width: .5px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    z-index: 99999999999;
+    outline: none;
+    bottom: 35px;
+    left: 10px;
+}
+.my-loc-btn img{
+    width: 100%;
+    object-fit: cover;
+}
+
+/**weather**/
+
+.weather{
+ width: 37%;
+ height: 90%;
+ border: 1px solid black;
+}
+
+/* footer */
+
+.footer{
+    background-color: #e3f2fd;
+    display: flex;
+    height: 10%;
+    justify-content: center;
+    align-items: center;
+}
