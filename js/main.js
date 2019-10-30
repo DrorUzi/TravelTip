@@ -21,9 +21,9 @@ window.onload = () => {
     //         console.log('User position is:', pos.coords);
 
     //     })
-        // .catch(err => {
-        //     console.log('err!!!', err);
-        // })
+    // .catch(err => {
+    //     console.log('err!!!', err);
+    // })
 }
 
 document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
@@ -31,6 +31,29 @@ document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
         .then(pos => {
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
         });
+    locService.getLatLng('raanana')
+        .then(info => {
+            console.log('info:', info)
+        }
+        )
 
 })
+
+document.querySelector('.search-btn').addEventListener('click', (ev) => {
+    ev.preventDefault()
+    let elSearchInput = document.querySelector('.search-input')
+    locService.getGeocodeData(elSearchInput.value)
+        .then(geocodeData => { 
+            renderGeocodeData(geocodeData)
+            elSearchInput.value = ''
+         }
+        )
+        .catch('error getting geocode Data')
+})
+
+function renderGeocodeData(geocodeData) {
+    document.querySelector('.adress').innerText = geocodeData.adress
+    mapService.setMapCenter(geocodeData.latLng)
+    mapService.setMapZoom(13)
+}
 

@@ -3,7 +3,9 @@
 export default {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    setMapCenter,
+    setMapZoom
 }
 
 var map;
@@ -49,6 +51,11 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
-
+function setMapCenter(latLng){
+    map.setCenter(latLng)
+}
+function setMapZoom(zoom){
+    map.setZoom(zoom)
+}
 
 
