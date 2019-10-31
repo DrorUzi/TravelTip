@@ -6,7 +6,6 @@ export default {
 }
 
 
-
 function getPosition() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -14,12 +13,11 @@ function getPosition() {
 }
 
 function getGeocodeData(adress) {
-    let prmGeocodeInfo = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${adress}&key=AIzaSyB7SzPNes4AjmRsbxennZQC5BjzyIeHHIQ`)
-    let geocodeData = prmGeocodeInfo.then(prmData => {
-        let relevantData = prmData.data.results[0]
-        let locAdress = relevantData.formatted_address
-        let locLatLng = relevantData.geometry.location
-        return { adress: locAdress, latLng: locLatLng }
-    })
-    return geocodeData
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${adress}&key=AIzaSyB7SzPNes4AjmRsbxennZQC5BjzyIeHHIQ`)
+        .then(prmData => (
+            {
+                adress: prmData.data.results[0].formatted_address,
+                latLng: prmData.data.results[0].geometry.location
+            }
+        ))
 }
