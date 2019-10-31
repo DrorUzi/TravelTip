@@ -1,5 +1,4 @@
 'use strict';
-let gLastLoc;
 
 export default {
     initMap,
@@ -7,9 +6,11 @@ export default {
     panTo,
     setMapCenter,
     setMapZoom,
-    gLastLoc
+    getgLastLoc,
+    updategLastLoc
 }
 
+let gLastLoc;
 let map;
 
 export function initMap(lat =35.6895, lng = 139.6917) {
@@ -36,7 +37,11 @@ function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng( lat,  lng);
     map.panTo(laLatLng);
     map.setZoom(15);
-    addMarker(laLatLng)    
+    addMarker(laLatLng)   
+    gLastLoc = {
+        lat,
+        lng
+    } 
 }
 
 function _connectGoogleApi() {
@@ -56,9 +61,18 @@ function _connectGoogleApi() {
 // TODO change glastloc 
 function setMapCenter(latLng){
     map.setCenter(latLng)
+    gLastLoc = latLng
 }
 function setMapZoom(zoom){
     map.setZoom(zoom)
+}
+
+function getgLastLoc(){
+    return gLastLoc
+}
+
+function updategLastLoc(latLng){
+    gLastLoc=latLng
 }
 
 
