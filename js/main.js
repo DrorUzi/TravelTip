@@ -4,16 +4,16 @@ import mapService from './services/map.service.js'
 import weatherService from './services/weather.service.js'
 
 window.onload = () => {
-    if (checkUrlParams()) {
-        let latLng = checkUrlParams()
-        mapService.initMap(latLng.lat, latLng.lng)
-            .then(() => {
-                mapService.setMapZoom(14)
-                mapService.addMarker(latLng)
-            })
-            .catch(() => {
-                renderRejectMsg('Init map error!')
-            });
+    if(checkUrlParams()){
+        let latLng =checkUrlParams()
+        mapService.initMap(latLng.lat,latLng.lng)
+        .then(()=>{
+            mapService.setMapZoom(14)
+            mapService.addMarker(latLng)
+        })
+        .catch(() => {
+            renderRejectMsg('Init map error!')
+        });
     }
     else mapService.initMap()
         .catch(() => {
@@ -91,7 +91,7 @@ function copyToClipboard() {
         renderRejectMsg('No location to copy!')
         return
     }
-    let currLocUrl = `https://droruzi.github.io/TravelTip?lat=${currLoc.lat}&lng=${currLoc.lng}`
+    let currLocUrl =  `https://droruzi.github.io/TravelTip?lat=${currLoc.lat}&lng=${currLoc.lng}`
     let elTextArea = document.createElement('textarea');
     document.body.appendChild(elTextArea);
     elTextArea.value = currLocUrl

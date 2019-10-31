@@ -58,7 +58,6 @@ function _connectGoogleApi() {
     })
 }
 
-// TODO change glastloc 
 function setMapCenter(latLng){
     map.setCenter(latLng)
     gLastLoc = latLng
